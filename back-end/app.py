@@ -120,3 +120,11 @@ def download_file(filename):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    print("🟢 Servidor Flask iniciado!")
+    print(f"➡️ Rota principal: http://localhost:{port}/")
+    print(f"➡️ Rota de geração: http://localhost:{port}/gerar")
+    print(f"➡️ Rota de download de arquivos: http://localhost:{port}/download/<nome_do_arquivo>")
+    app.run(host="0.0.0.0", port=port, debug=True)
