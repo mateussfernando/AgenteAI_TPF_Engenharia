@@ -11,7 +11,7 @@ export default function Home() {
     {
       tipo: "resposta",
       texto:
-        "Me forneça informações para que eu possa gerar um relatório para você. Preciso saber:\n\n" +
+        "Olá! sou a TPF - AI, Me forneça informações para que eu possa gerar um relatório para você. Preciso saber:\n\n" +
         "* Qual o assunto do relatório?\n* Qual o público-alvo?\n* Quais são os dados relevantes?\n* Qual o objetivo do relatório?\n* Qual o formato desejado?\n* Há algum template ou estrutura específica?\n\nQuanto mais detalhes, melhor e mais preciso será o relatório.",
     },
   ]);

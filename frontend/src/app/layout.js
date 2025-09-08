@@ -12,12 +12,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Zênon AI",
-  description: "Zênon IA - Sua uma IA especialista em tecnologia e programação",
+  title: "TPF - AI",
+  description: "",
   manifest: "/manifest.json",
   icons: {
-    icon: "logocel.png",
-    apple: "logocel.png", // Para iOS
+    icon: "l",
+    apple: "", // Para iOS
   },
   themeColor: "#3B82F6",
 };

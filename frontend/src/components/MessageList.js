@@ -2,9 +2,12 @@ import { FiCode } from "react-icons/fi";
 import LoadingIndicator from "./LoadingIndicator";
 
 export default function MessageList({ conversa, carregando, mensagensRef }) {
+  // Função para formatar a resposta, separando blocos de texto e blocos de código
   function formatarResposta(texto) {
     const codeBlocks = texto.split(/```(\w*)?([\s\S]*?)```/g);
+
     return codeBlocks.map(function (block, i) {
+      // Bloco de código (dentro de crases ``` ```)
       if (i % 3 === 2) {
         const language = codeBlocks[i - 1] || "";
         return (
@@ -20,9 +23,11 @@ export default function MessageList({ conversa, carregando, mensagensRef }) {
             </div>
           </div>
         );
-      } else if (block) {
+      }
+      // Texto normal
+      else if (block) {
         return (
-          <p key={i} className="whitespace-pre-wrap text-gray-800">
+          <p key={i} className="whitespace-pre-wrap">
             {block}
           </p>
         );
@@ -46,8 +51,8 @@ export default function MessageList({ conversa, carregando, mensagensRef }) {
           <div
             className={`max-w-3xl rounded-xl px-4 py-3 ${
               msg.tipo === "pergunta"
-                ? "bg-blue-600 text-white"
-                : "bg-white text-gray-800 shadow-sm border border-gray-200"
+                ? "bg-blue-600 text-white" // Pergunta → fundo azul, texto branco
+                : "bg-white text-gray-800 shadow-sm border border-gray-200" // Resposta → fundo branco, texto preto
             }`}
           >
             {formatarResposta(msg.texto)}

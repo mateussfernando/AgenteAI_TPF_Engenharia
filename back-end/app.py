@@ -20,16 +20,27 @@ genai.configure(api_key=API_KEY)
 
 app = Flask(__name__)
 CORS(app)  # Permite que o React acesse a API
+
 PASTA_ARQUIVOS = "arquivos"
 os.makedirs(PASTA_ARQUIVOS, exist_ok=True)
 
 # --- Funções ---
+INSTRUCAO_PERSONALIDADE = (
+    "Você é um assistente de IA especializado em gerar relatórios chamada TPF - AI, planilhas e PDFs. "
+    "Responda sempre em português, de forma clara, objetiva e profissional. "
+    "Organize a resposta em tópicos numerados quando fizer sentido. "
+    "Forneça apenas informações relevantes ao contexto de criação, edição e exportação de documentos."
+)
+
 def gerar_resposta(prompt: str) -> str:
+    """Gera resposta usando Gemini com personalidade definida."""
     modelo = genai.GenerativeModel("gemini-1.5-flash")
-    resposta = modelo.generate_content(prompt)
+    prompt_completo = INSTRUCAO_PERSONALIDADE + "\n\n" + prompt
+    resposta = modelo.generate_content(prompt_completo)
     return resposta.text
 
 def extrair_topicos(texto: str) -> list:
+    """Extrai tópicos numerados da resposta."""
     topicos_encontrados = re.findall(r'^\s*(\d+\.\s*.*?)(?=\s*\d+\.|\Z)', texto, re.DOTALL | re.MULTILINE)
     if not topicos_encontrados:
         return [linha.strip() for linha in texto.split("\n") if linha.strip()]
@@ -77,14 +88,17 @@ def gerar():
     if not prompt.strip():
         return jsonify({"resposta": "❌ Nenhuma pergunta recebida.", "arquivos": None}), 400
 
+    # Gera resposta com personalidade em português
     resposta_bruta = gerar_resposta(prompt)
     topicos = extrair_topicos(resposta_bruta)
 
+    # Cria nome base a partir de palavras-chave do prompt
     stop_words = ["o","a","os","as","um","uma","uns","umas","de","do","da","dos","das",
                   "para","em","no","na","nos","nas","com","por","sobre","que","e","se","ou"]
     palavras_chave = [p.lower() for p in re.split(r'\W+', prompt) if p.lower() not in stop_words and len(p) > 2]
     nome_base = "relatorio_" + "_".join(palavras_chave[:3]) if palavras_chave else "relatorio_gerado"
 
+    # Salva arquivos
     docx_path = salvar_docx(topicos, nome_base)
     xlsx_path = salvar_xlsx(topicos, nome_base)
     pdf_path = salvar_pdf(topicos, nome_base)
