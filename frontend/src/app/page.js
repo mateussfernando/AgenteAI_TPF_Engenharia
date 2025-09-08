@@ -33,7 +33,7 @@ export default function Home() {
 
     try {
       const resposta = await axios.post(
-        "http://localhost:5000/gerar",
+        "https://tpfai.onrender.com/gerar",
         { pergunta },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -85,7 +85,7 @@ export default function Home() {
         <div className="flex justify-center gap-4 p-4">
           {arquivos.docx && (
             <a
-              href={`http://localhost:5000${arquivos.docx}`}
+              href={`https://tpfai.onrender.com${arquivos.docx}`}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-blue-600 px-4 py-2 rounded text-white hover:bg-blue-700"
@@ -95,7 +95,7 @@ export default function Home() {
           )}
           {arquivos.xlsx && (
             <a
-              href={`http://localhost:5000${arquivos.xlsx}`}
+              href={`https://tpfai.onrender.com${arquivos.xlsx}`}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-blue-600 px-4 py-2 rounded text-white hover:bg-blue-700"
@@ -105,7 +105,7 @@ export default function Home() {
           )}
           {arquivos.pdf && (
             <a
-              href={`http://localhost:5000${arquivos.pdf}`}
+              href={`https://tpfai.onrender.com${arquivos.pdf}`}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-blue-600 px-4 py-2 rounded text-white hover:bg-blue-700"
