@@ -20,6 +20,7 @@ node_modules/
 /coverage
 
 # next.js
+
 frontend/.next/
 .next/
 .next
