@@ -6,10 +6,12 @@ const pwaConfig = withPWA({
   disable: process.env.NODE_ENV === "development",
   register: true,
   skipWaiting: true,
+
 });
 
 const nextConfig = {
   reactStrictMode: true,
+  output: "export", // ativa exportação estática
 };
 
 export default pwaConfig(nextConfig);
